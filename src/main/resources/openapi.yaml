@@ -1,0 +1,50 @@
+openapi: 3.0.3
+info:
+  title: fluffy API
+  description: fluffy API
+  version: 1.0.0
+  contact:
+    name: fluffy
+    email: fluffy@example.com
+servers:
+  - url: http://localhost:8080
+paths:
+  '/v1/user':
+    get:
+      operationId: get-user
+      summary: User API
+      description: Userを取得します
+      parameters:
+        - in: query
+          name: user_id
+          description: ユーザーID
+          required: true
+          schema:
+            type: integer
+            format: int32
+            example: 123
+      tags:
+        - User
+      responses:
+        '200':
+          description: 200 (OK)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          headers:
+            http_status:
+              description: HTTPステータス
+              schema:
+                type: integer
+        '400':
+          description: 400 (Bad Request)
+          headers:
+            http_status:
+              description: HTTPステータス
+              schema:
+                type: integer
+components:
+  schemas:
+    User:
+      $ref: './schemas/User.yaml'
