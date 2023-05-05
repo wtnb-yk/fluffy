@@ -1,6 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
+    id("application")
     id("org.springframework.boot") version "3.0.6"
     id("io.spring.dependency-management") version "1.1.0"
     id("org.openapi.generator") version "6.5.0"
@@ -50,6 +51,16 @@ openApiGenerate {
     )
 }
 
+tasks.register("bundleSwagger", Exec::class) {
+    group = "swagger"
+    description = "Bundle Swagger/OpenAPI file using swagger-cli."
+
+    val inputSpecPath = "src/main/resources/openapi.yaml"
+    val outputSpecPath = "_build/openapi.yaml"
+
+    commandLine("swagger-cli", "bundle", inputSpecPath, "--outfile", outputSpecPath, "--type", "yaml")
+}
+
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs = listOf("-Xjsr305=strict")
@@ -63,6 +74,10 @@ tasks.withType<Test> {
 
 tasks.compileKotlin {
     dependsOn("openApiGenerate")
+}
+
+tasks.openApiGenerate {
+    dependsOn("bundleSwagger")
 }
 
 kotlin.sourceSets.main {

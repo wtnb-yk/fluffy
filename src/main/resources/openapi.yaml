@@ -47,4 +47,4 @@ paths:
 components:
   schemas:
     User:
-      $ref: './schemas/User.yaml'
+      $ref: './schemas/user.yaml'
