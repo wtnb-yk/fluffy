@@ -4,24 +4,13 @@ plugins {
     id("org.springframework.boot") version "3.1.2"
     id("io.spring.dependency-management") version "1.1.2"
     id("org.liquibase.gradle") version "2.2.0"
+    id("nu.studer.jooq") version "8.2"
     kotlin("jvm") version "1.8.22"
     kotlin("plugin.spring") version "1.8.22"
 }
 
 group = "com.fluffy"
 version = "0.0.1-SNAPSHOT"
-
-liquibase {
-    activities.register("main") {
-        this.arguments = mapOf(
-            "logLevel" to "info",
-            "changelogFile" to "/src/main/resources/liquibase/changelog.xml",
-            "url" to "jdbc:postgresql://$dbHost:$dbPort/$dbName",
-            "username" to dbUser,
-            "password" to dbPass
-        )
-    }
-}
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17
@@ -42,13 +31,12 @@ dependencies {
     liquibaseRuntime("org.liquibase:liquibase-core:4.20.0")
     liquibaseRuntime("org.postgresql:postgresql:42.5.4")
     liquibaseRuntime("info.picocli:picocli:4.7.3")
-}
 
-val dbHost = System.getenv("DB_MASTER_HOST") ?: "localhost"
-val dbPort = System.getenv("DB_MASTER_PORT") ?: "15432"
-val dbUser = System.getenv("DB_USER") ?: "root"
-val dbPass = System.getenv("DB_PASS") ?: "root"
-val dbName = System.getenv("DB_NAME") ?: "fluffy"
+    // jOOQ
+    jooqGenerator("org.postgresql:postgresql:42.5.4")
+    implementation("org.springframework.boot:spring-boot-starter-jooq:3.0.4")
+    runtimeOnly("org.postgresql:postgresql:42.5.4")
+}
 
 tasks.withType<KotlinCompile> {
     kotlinOptions {
@@ -59,4 +47,58 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+val dbHost = System.getenv("DB_MASTER_HOST") ?: "localhost"
+val dbPort = System.getenv("DB_MASTER_PORT") ?: "15432"
+val dbUser = System.getenv("DB_USER") ?: "root"
+val dbPass = System.getenv("DB_PASS") ?: "root"
+val dbName = System.getenv("DB_NAME") ?: "fluffy"
+
+liquibase {
+    activities.register("main") {
+        this.arguments = mapOf(
+            "logLevel" to "info",
+            "changelogFile" to "/src/main/resources/liquibase/changelog.xml",
+            "url" to "jdbc:postgresql://$dbHost:$dbPort/$dbName",
+            "username" to dbUser,
+            "password" to dbPass
+        )
+    }
+}
+
+jooq {
+    version.set("3.18.2")
+    edition.set(nu.studer.gradle.jooq.JooqEdition.OSS)
+
+    configurations {
+        create("main") {
+            jooqConfiguration.apply {
+                jdbc.apply {
+                    driver = "org.postgresql.Driver"
+                    url = "jdbc:postgresql://$dbHost:$dbPort/$dbName"
+                    user = dbUser
+                    password = dbPass
+                }
+                generator.apply {
+                    name = "org.jooq.codegen.KotlinGenerator"
+                    database.apply {
+                        name = "org.jooq.meta.postgres.PostgresDatabase"
+                        inputSchema = "public"
+                    }
+                    generate.apply {
+                        isDeprecated = false
+                        isRecords = true
+                        isImmutablePojos = true
+                        isFluentSetters = true
+                    }
+                    target.apply {
+                        packageName = "local.codmon.handson.libraryapi.driver.librarydb"
+                        directory = "build/generated-src/jooq/main"
+                    }
+                    strategy.name = "org.jooq.codegen.DefaultGeneratorStrategy"
+                }
+            }
+        }
+    }
 }
