@@ -34,7 +34,7 @@ dependencies {
 
     // jOOQ
     jooqGenerator("org.postgresql:postgresql:42.5.4")
-    implementation("org.springframework.boot:spring-boot-starter-jooq:3.0.4")
+    implementation("org.springframework.boot:spring-boot-starter-jooq:3.1.0")
     runtimeOnly("org.postgresql:postgresql:42.5.4")
 }
 
@@ -93,7 +93,7 @@ jooq {
                         isFluentSetters = true
                     }
                     target.apply {
-                        packageName = "local.codmon.handson.libraryapi.driver.librarydb"
+                        packageName = "com.fluffy.fluffyapi.driver.fluffydb"
                         directory = "build/generated-src/jooq/main"
                     }
                     strategy.name = "org.jooq.codegen.DefaultGeneratorStrategy"
