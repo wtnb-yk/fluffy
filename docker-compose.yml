@@ -1,0 +1,20 @@
+version: "3.8"
+services:
+  db:
+    image: postgres:15.2
+    container_name: fluffy-db
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: fluffy
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8 --no-locale"
+      TZ: 'UTC'
+    command: postgres -c listen_addresses='*'
+    ports:
+      - "15432:5432"
+    networks:
+      - fluffy-dev-net
+
+networks:
+  fluffy-dev-net:
+    driver: bridge
