@@ -2,6 +2,7 @@ import { OwnerResponse, useCreateOwner, useDeleteOwner, useFetchOwner } from "./
 import { useForm, SubmitHandler } from "react-hook-form"
 import * as yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"
+import classes from "./List.module.scss"
 
 export default function List() {
   const { isLoading, isError, data } = useFetchOwner()
@@ -15,8 +16,8 @@ export default function List() {
     if (isError) return <p>Error!!! Failed to fetch data</p>
     if (data === undefined) return <p>No data.</p>
     return data.map((owner) => (
-      <div key={owner.id}>
-        <span>{owner.name}</span>
+      <div key={owner.id} className={classes.Owner_Container}>
+        <span className={classes.Owner_Name}>{owner.name}</span>
         <button onClick={() => deleteOwner(owner.id)}>delete</button>
       </div>
     ))

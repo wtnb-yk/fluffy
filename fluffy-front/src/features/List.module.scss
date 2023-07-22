@@ -1,0 +1,13 @@
+.Owner {
+    &_Container {
+        padding: 15px;
+        display: flex;
+        text-align: left;
+        border: 1px solid;
+    }
+
+    &_Name {
+        width: 140px;
+        padding-top: 10px;
+    }
+}
