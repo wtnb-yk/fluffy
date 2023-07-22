@@ -1,7 +1,6 @@
 package com.fluffy.fluffyapi.gateway
 
-
-import com.fluffy.fluffyapi.driver.fluffydb.tables.Owners.Companion.OWNERS
+import com.fluffy.fluffyapi.driver.fluffydb.tables.references.OWNERS
 import org.jooq.DSLContext
 import org.springframework.stereotype.Component
 import java.util.*
