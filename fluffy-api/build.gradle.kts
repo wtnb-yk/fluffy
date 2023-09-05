@@ -27,6 +27,10 @@ dependencies {
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 
+    // Arrow
+    implementation("io.arrow-kt:arrow-core:1.0.1")
+    testImplementation("io.kotest.extensions:kotest-assertions-arrow:1.3.0")
+
     // Liquibase
     liquibaseRuntime("org.liquibase:liquibase-core:4.20.0")
     liquibaseRuntime("org.postgresql:postgresql:42.5.4")
