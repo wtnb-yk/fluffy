@@ -1,0 +1,5 @@
+FROM openjdk:17
+
+RUN microdnf install findutils curl
+
+CMD ["./sbin/start.sh"]

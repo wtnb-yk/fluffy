@@ -9,8 +9,8 @@ import java.util.UUID
 class OwnersController(private val ownersRepository: OwnersRepository) {
     @GetMapping
     fun index(): MutableList<Owner> {
-        return ownersRepository.fetchAll().map { r ->
-            Owner(r.id!!, r.name!!)
+        return ownersRepository.fetchAll().map { ownerRecord ->
+            Owner(ownerRecord.id!!, ownerRecord.name!!)
         }
     }
 

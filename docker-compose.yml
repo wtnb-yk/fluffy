@@ -1,17 +1,77 @@
-version: "3.8"
 services:
+  web-setup:
+    image: hello-world:latest
+    container_name: fluffy-web-setup
+#    depends_on:
+#      api:
+#        condition: service_healthy
+#      front:
+#        condition: service_started
+
   db:
     image: postgres:15.2
     container_name: fluffy-db
+    hostname: fluffy-db
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: root
       POSTGRES_DB: fluffy
       POSTGRES_INITDB_ARGS: "--encoding=UTF-8 --no-locale"
+#      FLUFFY_BASE_URL: http://manager
       TZ: 'UTC'
+    #    volumes:
+    #      - ./db/.data:/var/lib/postgresql/data
     command: postgres -c listen_addresses='*'
+    healthcheck:
+      # https://github.com/peter-evans/docker-compose-healthcheck/issues/16
+      test: [ "CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     ports:
-      - "15432:5432"
+      - "10233:5432"
+    networks:
+      - fluffy-dev-net
+
+  api:
+    container_name: fluffy-api
+    hostname: fluffy-api
+    volumes:
+      - ./:/fluffy:delegated
+      - ${HOME}/gradle:/root/.gradle
+    working_dir:
+      /fluffy/fluffy-api/
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -k -f http://localhost:10280/ping" ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 600s
+    ports:
+      - 10280:10280 # 通常実行
+      - 10205:10205 # デバッグポート
+    stdin_open: true
+    tty: true
+    build:
+      context: fluffy-api
+      dockerfile: Dockerfile_local
+    environment:
+      TZ: 'UTC'
+      DB_MASTER_HOST: fluffy-db
+      DB_MASTER_PORT: 5432
+      DB_NAME: fluffy
+      DB_USER: root
+      DB_PASS: root
+#      FLUFFY_BASE_URL: http://manager
+      DO_MIGRATE: ${DO_MIGRATE:-false} # コンテナ起動時にマイグレーションを実行するかどうか, trueでなければ実行しない
+    depends_on:
+      db:
+        condition: service_healthy
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1m"
+        max-file: "1"
     networks:
       - fluffy-dev-net
 

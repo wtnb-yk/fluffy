@@ -22,6 +22,7 @@ repositories {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-webflux")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
@@ -54,7 +55,7 @@ tasks.withType<Test> {
 }
 
 val dbHost = System.getenv("DB_MASTER_HOST") ?: "localhost"
-val dbPort = System.getenv("DB_MASTER_PORT") ?: "15432"
+val dbPort = System.getenv("DB_MASTER_PORT") ?: "10233"
 val dbUser = System.getenv("DB_USER") ?: "root"
 val dbPass = System.getenv("DB_PASS") ?: "root"
 val dbName = System.getenv("DB_NAME") ?: "fluffy"

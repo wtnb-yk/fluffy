@@ -12,8 +12,12 @@ class FluffyApiApplication {
     fun corsConfigurer(): WebMvcConfigurer? {
         return object : WebMvcConfigurer {
             override fun addCorsMappings(registry: CorsRegistry) {
-                registry.addMapping("/**").allowedOrigins("http://localhost:5173")
-                    .allowedMethods("GET", "POST", "DELETE")
+//                registry.addMapping("/**").allowedOrigins("http://localhost:10280")
+//                    .allowedMethods("GET", "POST", "DELETE")
+                registry.addMapping("/**")
+                    .allowedOrigins("*")  // すべてのオリジンを許可
+                    .allowedMethods("*")  // すべてのHTTPメソッドを許可
+                    .allowedHeaders("*")  // すべてのヘッダーを許可
             }
         }
     }
