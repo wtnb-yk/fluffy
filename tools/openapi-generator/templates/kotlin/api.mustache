@@ -1,0 +1,13 @@
+{{>licenseInfo}}
+package {{apiPackage}}
+
+import org.springframework.web.reactive.function.server.ServerRequest
+import org.springframework.web.reactive.function.server.ServerResponse
+
+{{#operations}}
+    interface {{classname}}ControllerInterface {
+    {{#operation}}
+        suspend fun {{operationId}}(request: ServerRequest): ServerResponse
+    {{/operation}}
+    }
+{{/operations}}

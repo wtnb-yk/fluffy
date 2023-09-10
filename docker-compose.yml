@@ -2,9 +2,9 @@ services:
   web-setup:
     image: hello-world:latest
     container_name: fluffy-web-setup
-#    depends_on:
-#      api:
-#        condition: service_healthy
+    depends_on:
+      api:
+        condition: service_healthy
 #      front:
 #        condition: service_started
 

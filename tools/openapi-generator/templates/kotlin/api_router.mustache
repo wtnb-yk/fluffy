@@ -1,0 +1,19 @@
+{{>licenseInfo}}
+package {{apiPackage}}
+
+import {{baseControllerPackage}}.system.{{classname}}Controller
+import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Configuration
+import org.springframework.web.reactive.function.server.coRouter
+
+@Configuration
+class {{classname}}Router {
+{{#operations}}
+    @Bean
+    fun {{classname}}Routes(handler: {{classname}}Controller) = coRouter {
+    {{#operation}}
+        {{httpMethod}}("{{path}}", handler::{{operationId}})
+    {{/operation}}
+    }
+{{/operations}}
+}

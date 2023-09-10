@@ -1,0 +1,22 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Fluffy API
+  description: fluffy-api
+servers:
+  - url: ''
+paths:
+  /ping:
+    get:
+      summary: ヘルスチェック用エンドポイント
+      operationId: healthCheck
+      tags:
+        - system
+      parameters:
+        - schema:
+            type: string
+          in: cookie
+          name: PHPSESSID
+      responses:
+        '200':
+          description: OK

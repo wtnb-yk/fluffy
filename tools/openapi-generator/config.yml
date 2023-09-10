@@ -1,0 +1,12 @@
+templateDir: /fluffy/tools/openapi-generator/templates/kotlin
+baseControllerPackage: com.fluffy.fluffyapi.controller
+additionalProperties:
+  serializableModel: "true"
+  dateLibrary: java17
+files:
+  api.mustache:
+    templateType: API
+    destinationFilename: ControllerInterface.kt
+  api_router.mustache:
+    templateType: API
+    destinationFilename: Router.kt
