@@ -9,12 +9,10 @@ import org.springframework.web.reactive.function.server.bodyValueAndAwait
 
 @Component
 class SystemApiControllerImpl : SystemApiController {
-    data class HealthCheckResponse(val message: String = "fluffy-api ping", val status: String = "success")
-
     override suspend fun healthCheck(request: ServerRequest): ServerResponse {
         return ServerResponse
             .ok()
-            .contentType(MediaType.APPLICATION_JSON)
-            .bodyValueAndAwait(HealthCheckResponse())
+            .contentType(MediaType.TEXT_PLAIN)
+            .bodyValueAndAwait("ping")
     }
 }
