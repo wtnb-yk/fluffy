@@ -6,7 +6,7 @@ additionalProperties:
 files:
   api.mustache:
     templateType: API
-    destinationFilename: ControllerInterface.kt
+    destinationFilename: Controller.kt
   api_router.mustache:
     templateType: API
     destinationFilename: Router.kt

@@ -45,9 +45,7 @@ API_NAME="${PRJ_NAME}-api"
 FILE_DIR=$(cd $(dirname $0); pwd)
 
 ## dockerコンテナにプロジェクトのルートをマウントするので取得
-MAIN_DIR=$(cd $(dirname $0); cd ../../../; pwd)
-PRJ_ROOT_DIR="${MAIN_DIR}"
-#PRJ_ROOT_DIR="${MAIN_DIR}/services/${PRJ_NAME}"
+PRJ_ROOT_DIR=$(cd $(dirname $0); cd ../../../; pwd)
 
 ## apiサーバの存在チェック
 if [ ! -d "${PRJ_ROOT_DIR}/${API_NAME}" ]; then
@@ -63,7 +61,7 @@ SPEC_FILE="${SPEC_DIR}/${API_NAME}.yml"
 TEMPLATE_CONFIG="${PRJ_ROOT_ON_DOCKER_DIR}/tools/openapi-generator/config.yml"
 
 ## open-api-generator-cliのコンテナを利用してコード生成
-docker run --rm -v "${MAIN_DIR}:/${PRJ_ROOT_ON_DOCKER_DIR}" ${GENERATOR_IMAGE} generate \
+docker run --rm -v "${PRJ_ROOT_DIR}:/${PRJ_ROOT_ON_DOCKER_DIR}" ${GENERATOR_IMAGE} generate \
     -i "${SPEC_FILE}" \
     -g kotlin-spring \
     -o ${API_DIR} \
