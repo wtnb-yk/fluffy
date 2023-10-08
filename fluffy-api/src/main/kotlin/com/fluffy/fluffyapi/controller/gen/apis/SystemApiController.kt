@@ -18,6 +18,6 @@ package com.fluffy.fluffyapi.controller.gen.apis
 import org.springframework.web.reactive.function.server.ServerRequest
 import org.springframework.web.reactive.function.server.ServerResponse
 
-    interface SystemApiController {
-        suspend fun healthCheck(request: ServerRequest): ServerResponse
-    }
+interface SystemApiController {
+    suspend fun healthCheck(request: ServerRequest): ServerResponse
+}

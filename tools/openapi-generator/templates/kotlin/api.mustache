@@ -5,9 +5,9 @@ import org.springframework.web.reactive.function.server.ServerRequest
 import org.springframework.web.reactive.function.server.ServerResponse
 
 {{#operations}}
-    interface {{classname}}Controller {
-    {{#operation}}
-        suspend fun {{operationId}}(request: ServerRequest): ServerResponse
-    {{/operation}}
-    }
+interface {{classname}}Controller {
+{{#operation}}
+    suspend fun {{operationId}}(request: ServerRequest): ServerResponse
+{{/operation}}
+}
 {{/operations}}
