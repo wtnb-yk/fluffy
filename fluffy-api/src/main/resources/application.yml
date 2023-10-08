@@ -24,16 +24,9 @@ spring:
 server:
   port: 10280
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: mappings
-
 logging:
   level:
     org.springframework.web: DEBUG
-    org.springframework.web.servlet.DispatcherServlet: DEBUG
     org.jooq.tools.LoggerListener: DEBUG
     org.springframework.security: DEBUG
     root: INFO
