@@ -5,8 +5,8 @@ services:
     depends_on:
       api:
         condition: service_healthy
-#      front:
-#        condition: service_started
+      front:
+        condition: service_started
 
   db:
     image: postgres:15.2
@@ -74,6 +74,28 @@ services:
         max-file: "1"
     networks:
       - fluffy-dev-net
+
+  front:
+    container_name: fluffy-frontend
+    hostname: fluffy-frontend
+    volumes:
+      - ./:/fluffy:delegated
+      - frontend_node_modules:/fluffy/fluffy-front/node_modules
+      - ${HOME}/.npmrc:/root/.npmrc
+    working_dir:
+      /fluffy/fluffy-front
+    build:
+      context: fluffy-front
+      dockerfile: Dockerfile
+    ports:
+      - "10273:10273"
+    stdin_open: true
+    tty: true
+    networks:
+      - fluffy-dev-net
+
+volumes:
+  frontend_node_modules:
 
 networks:
   fluffy-dev-net:

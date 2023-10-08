@@ -2,7 +2,7 @@ import axios, { AxiosResponse } from "axios";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 
 const instance = axios.create({
-  baseURL: 'http://localhost:8080'
+  baseURL: 'http://localhost:10280'
 })
 
 export type OwnerResponse = {
@@ -57,7 +57,7 @@ export const useCreateOwner = () => {
       ['owner-delete'],
       deleteOwner,
       {
-        onSuccess: async (data, variables, context) => {
+        onSuccess: async () => {
           await queryClient.invalidateQueries({ queryKey: ['owner-fetch'] })
         }
       }
