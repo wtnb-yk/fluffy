@@ -12,11 +12,11 @@ paths:
       operationId: healthCheck
       tags:
         - system
-      parameters:
-        - schema:
-            type: string
-          in: cookie
-          name: PHPSESSID
       responses:
         '200':
           description: OK
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: ping
