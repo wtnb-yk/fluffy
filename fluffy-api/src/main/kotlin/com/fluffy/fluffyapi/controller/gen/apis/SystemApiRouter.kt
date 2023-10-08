@@ -15,15 +15,16 @@
 
 package com.fluffy.fluffyapi.controller.gen.apis
 
-import com.fluffy.fluffyapi.controller.system.SystemApiController
+import com.fluffy.fluffyapi.controller.system.SystemApiControllerImpl
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.MediaType
 import org.springframework.web.reactive.function.server.coRouter
 
 @Configuration
 class SystemApiRouter {
     @Bean
-    fun SystemApiRoutes(handler: SystemApiController) = coRouter {
+    fun SystemApiRoutes(handler: SystemApiControllerImpl) = coRouter {
         GET("/ping", handler::healthCheck)
     }
 }

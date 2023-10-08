@@ -8,7 +8,7 @@ import org.springframework.web.reactive.function.server.ServerResponse
 import org.springframework.web.reactive.function.server.bodyValueAndAwait
 
 @Component
-class SystemApiController : SystemApiController {
+class SystemApiControllerImpl : SystemApiController {
     data class HealthCheckResponse(val message: String = "fluffy-api ping", val status: String = "success")
 
     override suspend fun healthCheck(request: ServerRequest): ServerResponse {
