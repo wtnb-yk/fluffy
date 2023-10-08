@@ -1,4 +1,4 @@
-package com.codmon.facilitystore.environment
+package com.fluffy.fluffyapi.environment
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.context.annotation.Configuration
