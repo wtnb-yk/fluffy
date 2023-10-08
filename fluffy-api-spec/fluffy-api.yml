@@ -4,7 +4,7 @@ info:
   title: Fluffy API
   description: fluffy-api
 servers:
-  - url: ''
+  - url: 'https://localhost:10280/fluffy-api/'
 paths:
   /ping:
     get:
@@ -20,3 +20,27 @@ paths:
               schema:
                 type: string
                 example: ping
+  /me:
+    get:
+      summary: 自分自身の情報を取得
+      tags:
+        - me
+      operationId: getMe
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Me'
+
+components:
+  schemas:
+    Me:
+      title: Me
+      type: object
+      properties:
+        userName:
+          type: string
+      required:
+        - userName

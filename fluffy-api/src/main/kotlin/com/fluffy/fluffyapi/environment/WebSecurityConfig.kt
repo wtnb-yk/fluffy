@@ -6,12 +6,14 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpStatus
 import org.springframework.security.config.annotation.method.configuration.EnableReactiveMethodSecurity
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity
+import org.springframework.security.config.web.server.SecurityWebFiltersOrder
 import org.springframework.security.config.web.server.ServerHttpSecurity
 import org.springframework.security.web.server.SecurityWebFilterChain
 import org.springframework.security.web.server.authentication.HttpStatusServerEntryPoint
 import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.reactive.CorsConfigurationSource
 import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource
+import org.springframework.web.server.WebFilter
 
 @Configuration
 @EnableWebFluxSecurity
@@ -21,7 +23,7 @@ class WebSecurityConfig(
 //    @Qualifier("manager") val SessionFilterHelper: SessionCookieFilterHelper,
 ) {
 
-//    val API_PATH_MATCHER = "/fluffy-api/**"
+    val API_PATH_MATCHER = "/fluffy-api/**"
 
     @Autowired
 //    private lateinit var serverAuthenticationEntryPoint: FluffyAuthenticationEntryPoint
@@ -33,6 +35,10 @@ class WebSecurityConfig(
             .withAllowedOrigins()
             .withDisabledHttpBasicAuth()
             .withPublicEndPoint("/ping")
+            .withCookieSessionAuthentication(
+                API_PATH_MATCHER,
+//                ManagerSessionCookieFilter(codmonMangerSessionFilterHelper, API_PATH_MATCHER)
+            )
             .csrf{
                 it.disable()
             }
@@ -53,22 +59,22 @@ class WebSecurityConfig(
                 }
         }
 
-//    private fun ServerHttpSecurity.withCookieSessionAuthentication(
-//        path: String,
+    private fun ServerHttpSecurity.withCookieSessionAuthentication(
+        path: String,
 //        filter: WebFilter
-//    ): ServerHttpSecurity =
-//        this.authorizeExchange()
-//            .pathMatchers(path)
-//            .authenticated()
-//            .and()
-//            .addFilterAt(filter, SecurityWebFiltersOrder.AUTHENTICATION)
+    ): ServerHttpSecurity =
+        this.authorizeExchange {
+            it.pathMatchers(path)
+                .permitAll()
+                // TODO: 最終的には認証ありにする
+//                .authenticated()
+        }
 
     private fun ServerHttpSecurity.withPublicEndPoint(path: String): ServerHttpSecurity =
         this.authorizeExchange {
             it.pathMatchers(path)
                 .permitAll()
         }
-
 
 //    private fun ServerHttpSecurity.withAuthenticationEntryPoint(): ServerHttpSecurity =
 //        this.exceptionHandling()
