@@ -13,7 +13,6 @@ spring:
 ######################
 # Profile: localhost #
 ######################
-
 spring:
   config:
     activate:
@@ -25,9 +24,16 @@ spring:
 server:
   port: 10280
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: mappings
+
 logging:
   level:
     org.springframework.web: DEBUG
+    org.springframework.web.servlet.DispatcherServlet: DEBUG
     org.jooq.tools.LoggerListener: DEBUG
     org.springframework.security: DEBUG
     root: INFO
@@ -43,18 +49,18 @@ logging:
 # Profile: remote #
 ###################
 
-spring:
-  config:
-    activate:
-      on-profile: remote
-
-server:
-  port: 8080
-
-logging:
-  level:
-    root: INFO
-  config: classpath:log4j2-remote.xml
+#spring:
+#  config:
+#    activate:
+#      on-profile: remote
+#
+#server:
+#  port: 8080
+#
+#logging:
+#  level:
+#    root: INFO
+#  config: classpath:log4j2-remote.xml
 
 #custom:
 #  env: ${ENV}
