@@ -1,53 +1,53 @@
-import { OwnerResponse, useCreateOwner, useDeleteOwner, useFetchOwner } from "./api"
+import { PetResponse, useCreatePet, useDeletePet, useFetchPet } from "./api"
 import { useForm, SubmitHandler } from "react-hook-form"
 import * as yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"
 import classes from "./List.module.scss"
 
 export default function List() {
-  const { isLoading, isError, data } = useFetchOwner()
+  const { isLoading, isError, data } = useFetchPet()
 
   const renderList = (
     isLoading: boolean,
     isError: boolean,
-    data: OwnerResponse[] | undefined
+    data: PetResponse[] | undefined
   ) => {
     if (isLoading) return <p>Loading...</p>
     if (isError) return <p>Error!!! Failed to fetch data</p>
     if (data === undefined) return <p>No data.</p>
-    return data.map((owner) => (
-      <div key={owner.id} className={classes.Owner_Container}>
-        <span className={classes.Owner_Name}>{owner.name}</span>
-        <button onClick={() => deleteOwner(owner.id)}>delete</button>
+    return data.map((pet) => (
+      <div key={pet.id} className={classes.Pet_Container}>
+        <span className={classes.Pet_Name}>{pet.name}</span>
+        <button onClick={() => deletePet(pet.id)}>delete</button>
       </div>
     ))
   }
 
-  const OwnerFormSchema = yup.object({
+  const PetFormSchema = yup.object({
     name: yup.string().required(),
   }).required()
 
   const { register, handleSubmit, reset } = useForm({
-    resolver: yupResolver(OwnerFormSchema),
+    resolver: yupResolver(PetFormSchema),
     defaultValues: { name: ''}
   });
 
-  const updateMutation = useCreateOwner();
-  type OwnerFormSchema = yup.InferType<typeof OwnerFormSchema>;
-  const submitOwner: SubmitHandler<OwnerFormSchema> = (owner) => {
-    updateMutation.mutate({name: owner.name}, {onSuccess: () => {reset()}});
+  const updateMutation = useCreatePet();
+  type PetFormSchema = yup.InferType<typeof PetFormSchema>;
+  const submitPet: SubmitHandler<PetFormSchema> = (pet) => {
+    updateMutation.mutate({name: pet.name}, {onSuccess: () => {reset()}});
   }
 
-  const deleteMutation = useDeleteOwner();
-  const deleteOwner = (id: string) => {
+  const deleteMutation = useDeletePet();
+  const deletePet = (id: string) => {
     deleteMutation.mutate(id, {onSuccess: () => {reset()}})
   }
 
-  const renderAddOwner = () => {
+  const renderAddPet = () => {
     if(updateMutation.isLoading) {
-      return <p>Creating owner item...</p>
+      return <p>Creating pet item...</p>
     } else {
-      return <form onSubmit={handleSubmit(submitOwner)}>
+      return <form onSubmit={handleSubmit(submitPet)}>
         <input {...register("name")} placeholder='name'/>
         <button type="submit">追加</button>
       </form>
@@ -56,6 +56,6 @@ export default function List() {
 
   return <div>
     {renderList(isLoading, isError, data)}
-    {renderAddOwner()}
+    {renderAddPet()}
   </div>
 }

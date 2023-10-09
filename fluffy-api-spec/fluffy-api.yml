@@ -42,7 +42,7 @@ paths:
         required: true
         description: オーナーID
     get:
-      summary: ペットの取得
+      summary: オーナーが所有しているペットの取得
       operationId: getPets
       tags:
         - pets
@@ -70,6 +70,11 @@ components:
         - userName
     Pets:
       title: Pets
+      type: array
+      items:
+        $ref: '#/components/schemas/Pet'
+    Pet:
+      title: Pet
       type: object
       properties:
         id:

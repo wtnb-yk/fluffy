@@ -26,7 +26,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
  */
 
 
-data class Pets (
+data class Pet (
 
     @field:JsonProperty("id")
     val id: kotlin.String? = null,

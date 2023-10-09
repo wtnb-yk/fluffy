@@ -2,63 +2,64 @@ import axios, { AxiosResponse } from "axios";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 
 const instance = axios.create({
-  baseURL: 'http://localhost:10280'
+  baseURL: 'http://localhost:10280/fluffy-api'
 })
 
-export type OwnerResponse = {
+export type PetResponse = {
   id: string,
   name: string
 };
 
-const fetchOwner = async (): Promise<OwnerResponse[]> => {
+const fetchPet = async (): Promise<PetResponse[]> => {
   const { data } = await instance.get<
-    OwnerResponse[],
-    AxiosResponse<OwnerResponse[]>
-  >("/owners")
+    PetResponse[],
+    AxiosResponse<PetResponse[]>
+    // TODO: IDを仮置き
+  >("/v1/pets/8211983c-b70d-4682-923a-ba11b475cdfa")
   return data
 };
 
-export const useFetchOwner = () => {
+export const useFetchPet = () => {
   return useQuery({
-    queryKey: ["owner-fetch"],
-    queryFn: fetchOwner,
+    queryKey: ["pet-fetch"],
+    queryFn: fetchPet,
     staleTime: Infinity,
     cacheTime: Infinity,
   })
 };
 
-export type OwnerAddRequest = {
+export type PetAddRequest = {
   name: string
 }
 
-const createOwner = async (request: OwnerAddRequest): Promise<null> => {
-  return await instance.post('/owners', request)
+const createPet = async (request: PetAddRequest): Promise<null> => {
+  return await instance.post('/pets', request)
 }
 
-export const useCreateOwner = () => {
+export const useCreatePet = () => {
   const queryClient = useQueryClient()
   return useMutation(
-    ['owner-create'],
-    createOwner,
+    ['pet-create'],
+    createPet,
     {
       onSuccess: async () => {
-        await queryClient.invalidateQueries({ queryKey: ['owner-fetch'] })
+        await queryClient.invalidateQueries({ queryKey: ['pet-fetch'] })
       }
     })
   }
 
-  const deleteOwner = async (id: string): Promise<null> => {
-    return await instance.delete('/owners/' + id)
+  const deletePet = async (id: string): Promise<null> => {
+    return await instance.delete('/pets/' + id)
   }
   
-  export const useDeleteOwner = () => {
+  export const useDeletePet = () => {
     const queryClient = useQueryClient()
     return useMutation(
-      ['owner-delete'],
-      deleteOwner,
+      ['pet-delete'],
+      deletePet,
       {
         onSuccess: async () => {
-          await queryClient.invalidateQueries({ queryKey: ['owner-fetch'] })
+          await queryClient.invalidateQueries({ queryKey: ['pet-fetch'] })
         }
       }
     )

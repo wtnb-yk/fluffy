@@ -1,6 +1,7 @@
 package com.fluffy.fluffyapi.controller.v1
 
 import com.fluffy.fluffyapi.controller.gen.apis.PetsApiController
+import com.fluffy.fluffyapi.controller.gen.models.Pet
 import com.fluffy.fluffyapi.controller.gen.models.Pets
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Component
@@ -15,9 +16,11 @@ class PetApiControllerImpl: PetsApiController {
             .ok()
             .contentType(MediaType.APPLICATION_JSON)
             .bodyValueAndAwait(
-                Pets(
-                    id = "6ef0a13b-6b86-48a2-8a4c-2fce55d89844",
-                    name = "daifuku"
+                listOf(
+                    Pet(
+                        id = "6ef0a13b-6b86-48a2-8a4c-2fce55d89844",
+                        name = "daifuku"
+                    )
                 )
             )
     }
