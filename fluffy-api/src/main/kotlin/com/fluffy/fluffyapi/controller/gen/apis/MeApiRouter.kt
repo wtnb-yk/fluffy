@@ -23,6 +23,6 @@ import org.springframework.web.reactive.function.server.coRouter
 class MeApiRouter {
     @Bean
     fun MeApiRoutes(handler: MeApiController) = coRouter {
-        GET("/me", handler::getMe)
+        GET("/v1/me", handler::getMe)
     }
 }

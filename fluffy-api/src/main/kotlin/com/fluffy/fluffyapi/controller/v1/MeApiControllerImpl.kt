@@ -1,4 +1,4 @@
-package com.fluffy.fluffyapi.controller
+package com.fluffy.fluffyapi.controller.v1
 
 import com.fluffy.fluffyapi.controller.gen.apis.MeApiController
 import com.fluffy.fluffyapi.controller.gen.models.Me

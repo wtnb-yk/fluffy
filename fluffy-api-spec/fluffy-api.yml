@@ -20,7 +20,7 @@ paths:
               schema:
                 type: string
                 example: ping
-  /me:
+  /v1/me:
     get:
       summary: 自分自身の情報を取得
       tags:
@@ -33,6 +33,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Me'
+  /v1/pets/{owner_id}:
+    parameters:
+      - schema:
+          type: string
+        name: owner_id
+        in: path
+        required: true
+        description: オーナーID
+    get:
+      summary: ペットの取得
+      operationId: getPets
+      tags:
+        - pets
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pets'
 
 components:
   schemas:
@@ -48,3 +68,12 @@ components:
       required:
         - userId
         - userName
+    Pets:
+      title: Pets
+      type: object
+      properties:
+        id:
+          type: string
+          format: UUID
+        name:
+          type: string
