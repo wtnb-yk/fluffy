@@ -7,6 +7,7 @@ plugins {
     id("nu.studer.jooq") version "8.2"
     kotlin("jvm") version "1.8.22"
     kotlin("plugin.spring") version "1.8.22"
+    id("io.gitlab.arturbosch.detekt") version("1.22.0")
 }
 
 group = "com.fluffy"
@@ -107,4 +108,10 @@ jooq {
             }
         }
     }
+}
+
+detekt {
+    config.setFrom(file("config/detekt/detekt.yml"))
+    buildUponDefaultConfig = true
+    ignoreFailures = true
 }
