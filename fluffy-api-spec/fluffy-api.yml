@@ -40,7 +40,11 @@ components:
       title: Me
       type: object
       properties:
+        userId:
+          type: string
+          format: UUID
         userName:
           type: string
       required:
+        - userId
         - userName

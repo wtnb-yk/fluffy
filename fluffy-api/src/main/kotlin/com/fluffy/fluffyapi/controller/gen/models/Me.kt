@@ -21,11 +21,15 @@ import com.fasterxml.jackson.annotation.JsonProperty
 /**
  * 
  *
+ * @param userId 
  * @param userName 
  */
 
 
 data class Me (
+
+    @field:JsonProperty("userId", required=true)
+    val userId: kotlin.String,
 
     @field:JsonProperty("userName", required=true)
     val userName: kotlin.String
