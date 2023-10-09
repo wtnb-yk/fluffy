@@ -2,7 +2,6 @@ package com.fluffy.fluffyapi.controller.v1
 
 import com.fluffy.fluffyapi.controller.gen.apis.PetsApiController
 import com.fluffy.fluffyapi.controller.gen.models.Pet
-import com.fluffy.fluffyapi.controller.gen.models.Pets
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.server.ServerRequest
