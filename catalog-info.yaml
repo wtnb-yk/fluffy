@@ -5,6 +5,6 @@ metadata:
   annotations:
     github.com/project-slug: wtnb-yk/fluffy
 spec:
-  type: other
-  lifecycle: unknown
+  type: service
+  lifecycle: experimental
   owner: wtnb-yk
