@@ -1,0 +1,21 @@
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: chun-tech
+  description: The chun technical unit
+spec:
+  type: business-unit
+  profile:
+    displayName: chun-tech
+    email: chunchun@example.com
+  children: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: yu_watanabe
+spec:
+  profile:
+    displayName: yu_watanabe
+    email: chunchun@example.com
+  memberOf: [chun-tech]
