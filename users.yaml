@@ -13,9 +13,9 @@ spec:
 apiVersion: backstage.io/v1alpha1
 kind: User
 metadata:
-  name: yu_watanabe
+  name: wtnb-yk
 spec:
   profile:
-    displayName: yu_watanabe
+    displayName: wtnb-yk
     email: chunchun@example.com
   memberOf: [chun-tech]
