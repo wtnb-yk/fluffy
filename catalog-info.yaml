@@ -31,4 +31,8 @@ spec:
   owner: chun-tech
   system: fluffy
   definition: |
-    $text: ./fluffy-api-spec/fluffy-api.yml
+    openapi: "3.1.0"
+    info:
+      version: 1.0.0
+      title: fluffy API
+    paths: fluffy-api-spec/fluffy-api.yml
