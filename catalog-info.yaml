@@ -13,7 +13,7 @@ metadata:
   annotations:
     github.com/project-slug: wtnb-yk/fluffy
 spec:
-  type: service
+  type: web-site
   lifecycle: experimental
   owner: chun-tech
   system: fluffy
