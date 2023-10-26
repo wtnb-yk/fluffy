@@ -31,4 +31,4 @@ spec:
   owner: chun-tech
   system: fluffy
   definition: |
-    $text: https://petstore.swagger.io/v2/swagger.json
+    $text: ./fluffy-api-spec/fluffy-api.yml
