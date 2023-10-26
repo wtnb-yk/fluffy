@@ -10,7 +10,6 @@ spec:
   owner: chun-tech
   system: fluffy
 
-
 apiVersion: backstage.io/v1alpha1
   kind: API
   metadata:
