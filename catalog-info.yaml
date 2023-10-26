@@ -31,4 +31,4 @@ spec:
   owner: chun-tech
   system: fluffy
   definition: |
-    $text: ./fluffy-api-spec/fluffy-api.yml
+    $text: ./fluffy-api-spec/fluffy-api.yaml
