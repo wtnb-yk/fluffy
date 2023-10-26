@@ -35,4 +35,4 @@ spec:
     info:
       version: 1.0.0
       title: fluffy API
-    paths: fluffy-api-spec/fluffy-api.yml
+    paths: ./fluffy-api-spec/fluffy-api.yml
