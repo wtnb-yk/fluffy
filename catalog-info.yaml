@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: fluffy
+  annotations:
+    github.com/project-slug: wtnb-yk/fluffy
+spec:
+  type: other
+  lifecycle: unknown
+  owner: wtnb-yk
