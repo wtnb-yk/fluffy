@@ -17,6 +17,8 @@ spec:
   lifecycle: experimental
   owner: chun-tech
   system: fluffy
+  providesApis:
+    - fluffy-api
 
 ---
 apiVersion: backstage.io/v1alpha1
