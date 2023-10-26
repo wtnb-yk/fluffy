@@ -1,3 +1,11 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: fluffy
+spec:
+  owner: chun-tech
+---
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
