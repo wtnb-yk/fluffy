@@ -10,13 +10,12 @@ spec:
   owner: chun-tech
   system: fluffy
 
-apiVersion: backstage.io/v1alpha1
-  kind: API
-  metadata:
-    name: fluffy-api
-    description: fluffy-api
-  spec:
-    type: openapi
-    lifecycle: experimental
-    owner: chun-tech
-    system: fluffy
+kind: API
+metadata:
+  name: fluffy-api
+  description: fluffy-api
+spec:
+  type: openapi
+  lifecycle: experimental
+  owner: chun-tech
+  system: fluffy
