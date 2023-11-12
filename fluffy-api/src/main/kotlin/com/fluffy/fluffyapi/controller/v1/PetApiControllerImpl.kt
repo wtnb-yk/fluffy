@@ -9,7 +9,7 @@ import org.springframework.web.reactive.function.server.ServerResponse
 import org.springframework.web.reactive.function.server.bodyValueAndAwait
 
 @Component
-class PetApiControllerImpl: PetsApiController {
+class PetApiControllerImpl : PetsApiController {
     override suspend fun getPets(request: ServerRequest): ServerResponse {
         return ServerResponse
             .ok()
